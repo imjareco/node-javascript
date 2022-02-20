@@ -1,2 +1,2 @@
 # node-javascript
-Nodejs archetype (MERN)
+Nodejs basic archetype with express
