@@ -30,7 +30,6 @@ const UserSchema = Schema({
 
   registerDate: {
     type: Date,
-    required: true,
   },
 
   status: {

@@ -1,14 +1,20 @@
 const { request, response } = require('express');
+const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 
-// const checkUser = async (req = request, res = response) => {
-//   const { email } = req.body;
-//   const user = User.findOne({ $eq: email });
-//   console.log(user);
-// };
-
 const createUser = async (req = request, res = response) => {
-  const user = new User(req.body);
+  const { name, lastname, username, email, password } = req.body;
+  const user = new User({ name, lastname, username, email, password });
+
+  // Check email exists
+  const userExists = await User.findOne({ email });
+  if (userExists) {
+    return res.status(400).json({ msg: 'The email already exists' });
+  }
+
+  // Encrypt password
+  const salt = bcrypt.genSaltSync();
+  user.password = bcrypt.hashSync(password, salt);
 
   try {
     const userSaved = await user.save();
