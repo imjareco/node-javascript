@@ -1,7 +1,7 @@
-require('dotenv').config()
+require('dotenv').config();
 
-const Core = require('./core')
+const Core = require('./core');
 
-const core = new Core()
+const core = new Core();
 
-core.start()
+core.start();

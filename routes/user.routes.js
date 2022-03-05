@@ -1,9 +1,9 @@
-const express = require("express");
-const { createUser } = require("../controllers/user.controller");
+const express = require('express');
+const { createUser } = require('../controllers/user.controller');
 
 const router = express.Router();
 
-router.post("/register", createUser);
+router.post('/register', createUser);
 
 // WITH MIDDLEWARE
 // router.put("/account/update", securityMiddleware.checkToken, userController.updateUser);
