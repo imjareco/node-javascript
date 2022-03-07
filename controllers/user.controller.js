@@ -17,8 +17,8 @@ const createUser = async (req = request, res = response) => {
   user.password = bcrypt.hashSync(password, salt);
 
   try {
-    const userSaved = await user.save();
-    res.status(201).send({ user: userSaved });
+    await user.save();
+    res.status(201).json({ user });
   } catch (error) {
     res.status(500).send({ error: 'Error to save user' });
   }
