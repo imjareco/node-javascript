@@ -39,7 +39,7 @@ class Core {
 
     // APP ROUTE
     this.core.get('*', (req, res) =>
-      res.sendFile(`${__dirname}/public/index.html`)
+      res.sendFile(`${process.cwd()}/public/index.html`)
     );
   }
 
