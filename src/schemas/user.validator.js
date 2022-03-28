@@ -1,9 +1,8 @@
 const Joi = require('joi');
+const { idSchema } = require('./utils');
 
 const userValidatorSchema = {
-  get: {
-    id: Joi.number().min(1).required(),
-  },
+  get: idSchema,
 
   post: Joi.object().options({ abortEarly: false }).keys({
     name: Joi.string().required(),
@@ -18,7 +17,7 @@ const userValidatorSchema = {
   }),
 
   delete: {
-    id: Joi.number().min(1).required(),
+    id: idSchema,
   },
 };
 
