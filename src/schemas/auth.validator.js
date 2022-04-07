@@ -1,9 +1,18 @@
 const Joi = require('joi');
+const { fieldSchemes } = require('./utils');
 
 const authSchema = {
-  login: Joi.Schema({
-    email: Joi.string().email().required(),
-    password: Joi.string().required(),
+  login: Joi.object().options({ abortEarly: false }).keys({
+    email: fieldSchemes.email.required(),
+    password: fieldSchemes.password.required(),
+  }),
+
+  register: Joi.object().options({ abortEarly: false }).keys({
+    name: Joi.string().required(),
+    lastname: Joi.string().required(),
+    username: Joi.string().required(),
+    email: fieldSchemes.email.required(),
+    password: fieldSchemes.password.required(),
   }),
 };
 

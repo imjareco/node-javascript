@@ -1,25 +1,18 @@
 const Joi = require('joi');
+const { genericSchemes, fieldSchemes } = require('./utils');
 
 const userValidatorSchema = {
-  get: {
-    id: Joi.number().min(1).required(),
-  },
+  get: genericSchemes.idSchema,
 
-  post: Joi.object().options({ abortEarly: false }).keys({
-    name: Joi.string().required(),
-    lastname: Joi.string().required(),
-    username: Joi.string().required(),
-    email: Joi.string().email().required(),
-    password: Joi.string().required(),
+  put: Joi.object().options({ abortEarly: false }).keys({
+    name: Joi.string(),
+    lastname: Joi.string(),
+    username: Joi.string(),
+    email: fieldSchemes.email,
+    password: fieldSchemes.password,
   }),
 
-  put: Joi.object().keys({
-    id: Joi.string().required(),
-  }),
-
-  delete: {
-    id: Joi.number().min(1).required(),
-  },
+  delete: genericSchemes.idSchema,
 };
 
 module.exports = userValidatorSchema;

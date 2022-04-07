@@ -2,9 +2,9 @@ const express = require('express');
 const cors = require('cors');
 
 const { connection } = require('./database/mongoose');
-const { env, endpoint } = require('./config');
+const routes = require('./routes');
 
-const { PORT } = env;
+const { PORT } = process.env;
 
 class Core {
   constructor() {
@@ -34,8 +34,7 @@ class Core {
 
   useRoutes() {
     // API ROUTES
-    this.core.use(endpoint.auth, require('./routes/auth.routes'));
-    this.core.use(endpoint.user, require('./routes/user.routes'));
+    this.core.use(routes);
 
     // APP ROUTE
     this.core.get('*', (req, res) =>

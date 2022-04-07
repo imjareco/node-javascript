@@ -1,26 +1,13 @@
 const Joi = require('joi');
 
-const headers = Joi.Schema({
-  Authentication: {
-    id: Joi.number().min(1).required(),
-  },
+const headersSchema = {
+  // UNUSED
+  secure: Joi.object()
+    .options({ abortEarly: false })
+    .keys({
+      'user-session': Joi.string().base64().required(),
+      'session-token': Joi.string().alphanum().min(3).max(200).required(),
+    }),
+};
 
-  post: Joi.object().keys({
-    name: Joi.string().required(),
-    lastname: Joi.string().required(),
-    username: Joi.string().required(),
-    email: Joi.string().email().required(),
-    password: Joi.string().required(),
-  }),
-
-  put: {
-    page: Joi.number().required(),
-    pageSize: Joi.number().required(),
-  },
-
-  delete: {
-    id: Joi.number().min(1).required(),
-  },
-});
-
-module.exports = headers;
+module.exports = headersSchema;
