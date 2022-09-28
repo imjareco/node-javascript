@@ -42,19 +42,20 @@ const signIn = async (req = request, res = response) => {
 
 const signUp = async (req = request, res = response) => {
   const { name, lastname, username, email, password } = req.body;
-  const userModel = new User({ name, lastname, username, email, password });
 
   // Check email exists
-  const userExists = await User.findOne({ email });
-  if (userExists) {
-    return res.status(400).json({ msg: 'The email already exists' });
-  }
-
-  // Encrypt password
-  const salt = bcrypt.genSaltSync();
-  userModel.password = bcrypt.hashSync(password, salt);
-
   try {
+    const userModel = new User({ name, lastname, username, email, password });
+    const userExists = await User.findOne({ email });
+
+    if (userExists) {
+      return res.status(400).json({ msg: 'The email already exists' });
+    }
+
+    // Encrypt password
+    const salt = bcrypt.genSaltSync();
+    userModel.password = bcrypt.hashSync(password, salt);
+
     await userModel.save();
     res.status(201).json(userModel);
   } catch (error) {

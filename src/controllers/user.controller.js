@@ -6,13 +6,12 @@ const User = require('../models/user');
 const findUserById = async (req = request, res = response) => {
   const { id } = req.params;
   const _id = bufferDecode(id).toString('ascii');
-  const user = await User.findOne({ _id });
-
-  if (!user) {
-    return res.status(400).json({ msg: 'The user not exists' });
-  }
 
   try {
+    const user = await User.findOne({ _id });
+    if (!user) {
+      return res.status(400).json({ msg: 'The user not exists' });
+    }
     res.status(201).json(user);
   } catch (error) {
     res.status(500).send({ error: 'Error to find user' });
@@ -20,13 +19,13 @@ const findUserById = async (req = request, res = response) => {
 };
 
 const getUsers = async (req = request, res = response) => {
-  const users = await User.find({ status: 'ACTIVE' });
-
-  if (!users) {
-    return res.status(400).json({ msg: 'No users' });
-  }
-
   try {
+    const users = await User.find({ status: 'ACTIVE' });
+
+    if (!users) {
+      return res.status(400).json({ msg: 'No users' });
+    }
+
     res.status(201).json(users);
   } catch (error) {
     res.status(500).send({ error: 'Error to list users' });
